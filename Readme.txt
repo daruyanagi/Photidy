@@ -6,6 +6,8 @@ System Requirements:
 
 # Release Notes
 
+- v1.1(2015/09/06)
+	- Internal Improvements
 - v1.0(2015/09/06)
 	- Initial Release
 

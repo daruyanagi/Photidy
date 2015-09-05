@@ -20,88 +20,16 @@ namespace Photidy.Models
         Move,
     }
 
-    public class AppSettings : INotifyPropertyChanged
+    public class AppSettings
     {
-        private List<string> _SrcFolders;
-        public List<string> SrcFolders
-        {
-            get
-            {
-                return _SrcFolders;
-            }
-            set
-            {
-                SetPropety(ref _SrcFolders, value);
-            }
-        }
+        public List<string> SrcFolders { get; set; }
 
-        private OperationMode _OperationMode;
-        public OperationMode OperationMode
-        {
-            get
-            {
-                return _OperationMode;
-            }
-            set
-            {
-                SetPropety(ref _OperationMode, value);
-            }
-        }
-
-        private string _DestFolder;
-        public string DestFolder
-        {
-            get
-            {
-                return _DestFolder;
-            }
-            set
-            {
-                SetPropety(ref _DestFolder, value);
-            }
-        }
-
-        private string _SearchPattern = "*.png;*.jpg";
-        public string SearchPattern
-        {
-            get
-            {
-                return _SearchPattern;
-            }
-            set
-            {
-                SetPropety(ref _SearchPattern, value);
-            }
-        }
-
-        private string _FileNamePattern = @"{yyyy}-{MM}-{dd}\{filename}";
-        public string FileNamePattern
-        {
-            get
-            {
-                return _FileNamePattern;
-            }
-            set
-            {
-                SetPropety(ref _FileNamePattern, value);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected bool SetPropety<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-
-            field = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
+        public OperationMode OperationMode { get; set; }
+        
+        public string DestFolder { get; set; }
+        
+        public string SearchPattern { get; set; } = "*.png;*.jpg";
+        
+        public string FileNamePattern { get; set; } = @"{yyyy}-{MM}-{dd}\{filename}";
     }
 }

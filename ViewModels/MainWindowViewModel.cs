@@ -1,14 +1,10 @@
-﻿using Photidy.Models;
-using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,6 +15,8 @@ using System.Xml.Serialization;
 
 namespace Photidy.ViewModels
 {
+    using Photidy.Models;
+
     class MainWindowViewModel: NotifyPropertyCgangedBase
     {
         private AppSettings model;
