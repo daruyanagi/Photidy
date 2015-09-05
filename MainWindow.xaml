@@ -1,0 +1,67 @@
+﻿<Window x:Class="Photidy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Photidy"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="540" Width="600" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        
+    </Window.Resources>
+    
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Style="{StaticResource Header}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="6">Source Folders</TextBlock>
+
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="6"
+                 ItemsSource="{Binding SrcFolders}" 
+                 SelectedValue="{Binding SelectedItem}" 
+                 SelectedIndex="{Binding SelectedIndex}"></ListBox>
+
+        <Button Grid.Row="2" Grid.Column="2" Margin="6" Padding="6" Width="72" 
+                Command="{Binding AddSrcFoldersCommand}">Add</Button>
+        <Button Grid.Row="2" Grid.Column="3" Margin="6" Padding="6" Width="72" 
+                Command="{Binding DeleteSrcFoldersCommand}">Delete</Button>
+
+        <TextBlock Style="{StaticResource Header}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="6">Search Pattern</TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Padding="6" Text="{Binding SearchPattern}"></TextBox>
+
+        <TextBlock Style="{StaticResource Header}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="6">Destination Folder</TextBlock>
+        <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Padding="6" Text="{Binding DestFolder}"></TextBox>
+        <Button Grid.Row="6" Grid.Column="3" Margin="6" Padding="6" Width="72" Command="{Binding SelectDestFolderCommand}">Select</Button>
+
+        <TextBlock Style="{StaticResource Header}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1" Margin="6">Filename Pattern</TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Margin="6" TextAlignment="Right" Text="{Binding FilenameSample}"></TextBlock>
+        <TextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Padding="6" Text="{Binding FilenamePattern, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="4" Margin="6">You can use y: Year, M:Month, d:Day, h:Hour, m:Minute, s:Second, filename, fileext.</TextBlock>
+        
+        <Separator Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Padding="6"></Separator>
+
+        <Button Grid.Row="11" Grid.Column="2" Margin="6" Padding="6" Width="72" Command="{Binding CopyCommand}">Copy</Button>
+        <Button Grid.Row="11" Grid.Column="3" Margin="6" Padding="6" Width="72" Command="{Binding MoveCommand}">Move</Button>
+
+    </Grid>
+</Window>
