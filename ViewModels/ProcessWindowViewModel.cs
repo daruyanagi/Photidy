@@ -25,15 +25,6 @@ namespace Photidy.ViewModels
             this.model = model;
             this.pattern = model.FileNamePattern;
 
-            pattern = pattern.Replace("{filename}", "{1}");
-            pattern = pattern.Replace("{fileext}", "{2}");
-            pattern = pattern.Replace("{y", "{0:y");
-            pattern = pattern.Replace("{M", "{0:M");
-            pattern = pattern.Replace("{d", "{0:d");
-            pattern = pattern.Replace("{h", "{0:h");
-            pattern = pattern.Replace("{m", "{0:m");
-            pattern = pattern.Replace("{s", "{0:s");
-
             var files = GetFiles(model.SrcFolders.ToArray());
 
             Total = files.Length;
@@ -57,7 +48,7 @@ namespace Photidy.ViewModels
                     {
                         Processed++;
 
-                        var new_filename = GenerateNewFileNameByExifDateTime(model.DestFolder, old_filename);
+                        var new_filename = Utilities.GenerateNewFileNameByExifDateTime(model.DestFolder, old_filename, this.pattern);
 
                         Source = old_filename;
                         Destination = new_filename;
@@ -142,37 +133,6 @@ namespace Photidy.ViewModels
             }
 
             return list.ToArray();
-        }
-
-        private string GenerateNewFileNameByExifDateTime(string base_dir, string filename)
-        {
-
-            if (!File.Exists(filename))
-                throw new FileNotFoundException();
-
-            using (var bitmap = new Bitmap(filename))
-            {
-                const int EXIF_DATETIME = 0x9003;
-
-                int index = Array.IndexOf(bitmap.PropertyIdList, EXIF_DATETIME);
-
-                if (index == -1) // Exif データがなかった -> そのままのファイル名を返す
-                {
-                    return filename;
-                    // return Path.Combine(base_dir, Path.GetFileName(filename));
-                }
-                else // Exif データがあった -> Filename Pattern で加工したファイル名を返す
-                {
-                    var property = bitmap.PropertyItems[index];
-
-                    // 2015:09:05 22:31:45\0 形式で取得できるので、バラして DateTime にする
-                    var s = Encoding.ASCII.GetString(property.Value) as string;
-                    var p = s.Trim('\0').Split(' ', ':').Select(_ => int.Parse(_)).ToArray();
-                    var datetime = new DateTime(p[0], p[1], p[2], p[3], p[4], p[5]);
-
-                    return Path.Combine(base_dir, string.Format(pattern, datetime, Path.GetFileName(filename), Path.GetExtension(filename)));
-                }
-            }
         }
 
         private ObservableCollection<string> errors = new ObservableCollection<string>();
